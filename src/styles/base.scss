@@ -1,0 +1,45 @@
+html {
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  min-height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0 auto;
+  background: $background;
+}
+
+button {
+  font-family: inherit;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+$appColor: #333;
+
+#app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 500px;
+  margin: auto;
+  padding: 0 10%;
+  color: $appColor;
+}
+
+* {
+  box-sizing: border-box;
+}

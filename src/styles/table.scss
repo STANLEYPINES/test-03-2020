@@ -1,0 +1,48 @@
+$table-border-color: #0000001f;
+$table-fontSize: .9rem;
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: $table-fontSize;
+  border: none;
+  text-align: left;
+  border-radius: 4px;
+  border: 1px solid $table-border-color;
+}
+
+tbody {
+  @extend %tbody;
+}
+
+
+tr {
+  display: flex;
+  border-bottom: 1px solid $table-border-color;
+
+
+  %tbody & {
+    &:hover {
+      background-color: $background-liteDark;
+    }
+  }
+
+}
+
+th, td {
+  padding: $table-fontSize;
+  flex-basis: 50%;
+}
+
+th {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+td {
+  display: flex;
+  align-items: center;
+}
+
+

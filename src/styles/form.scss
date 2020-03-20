@@ -1,0 +1,30 @@
+.modalForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.modalFormTabButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 0 $gap;
+}
+
+.modalFormTabInput{
+  display: none;
+  width: 100%;
+  font-size: $primaryFontSize;
+  height: $primaryFontSize * 3;
+  padding: 0 $primaryFontSize;
+  margin: 0 0 $gap;
+
+  &-is-active {
+    display: block;
+  }
+
+}
+
+
+

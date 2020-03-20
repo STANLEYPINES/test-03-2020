@@ -1,0 +1,90 @@
+%button {
+  background: none;
+  font-size: $primaryFontSize;
+  line-height: 1;
+  color: inherit;
+  text-transform: uppercase;
+  font-weight: 500;
+  background-color: transparent;
+  transition: background-color .2s;
+  border-radius: 5px;
+  border: 0;
+
+  &:hover {
+    background-color: $background-dark;
+  }
+}
+
+%button-action {
+  @extend %button;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  border: 0;
+  padding: ($primaryFontSize / 2);
+  text-indent: -1000000px;
+  margin: 0 auto 0 0;
+}
+
+.addButton {
+  @extend %button;
+  margin: 0 0 $gap;
+  border: 1px solid $borderColor;
+  padding: ($primaryFontSize / 2) $primaryFontSize;
+}
+
+$closeModalButton-size: 30px;
+
+.closeModalButton {
+  @extend %button;
+  position: absolute;
+  top: $closeModalButton-size / 2;
+  right: $closeModalButton-size / 2;
+  width: $closeModalButton-size;
+  height: $closeModalButton-size;
+  text-indent: -100000px;
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+.tableEditButton {
+  @extend %button-action;
+}
+
+.tableDeleteButton {
+  @extend %button-action;
+}
+
+.modalFormTabButton {
+  @extend %button;
+  padding: $primaryFontSize;
+  flex-basis: 33.3%;
+  border-bottom: 3px solid;
+  border-color: $borderColor;
+  transition: border-color .4s;
+  border-radius: 5px 5px 0 0;
+  min-width: 100px;
+
+  &-is-active {
+    border-color: $borderColor-dark;
+  }
+
+}
+
+.formSubmit {
+  @extend %button;
+  padding: $primaryFontSize;
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+}
