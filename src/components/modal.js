@@ -20,8 +20,8 @@ function Modal(props) {
       <ModalForm
         fieldsTemplate={props.options.fieldsTemplate}
         initialFieldsValues={props.options.values}
-        submitHandler={submitHandlers[props.options.mode]}
-        buttonText={buttonTextVariants[props.options.mode]}
+        submitHandler={props.options.values ? submitHandlers.edit : submitHandlers.add }
+        buttonText={props.options.values ? buttonTextVariants.edit : buttonTextVariants.add}
       />
       <Button
         action={props.closeHandler}

@@ -10,16 +10,16 @@ function Table(props) {
     return props.fieldsTemplate.map(template => <th key={template.name}>{template.name}</th>);
   }
 
-  function renderCell(cell, row) {
+  function renderCell(cell, index, row) {
     return (
-      <td>{row[cell.name]}</td>
+      <td key={`${cell.name}TableCell${index}`}>{row[cell.name]}</td>
     );
   }
 
   function renderRow(row, index) {
     return (
-      <tr>
-        {props.fieldsTemplate.map(cell => renderCell(cell, row))}
+      <tr key={`${index}TableRow`}>
+        {props.fieldsTemplate.map((cell, cellIndex) => renderCell(cell, cellIndex, row))}
         <td>
           <Button
             action={() => { props.editHandler({ mode: 'edit', rowIndex: index }); }}
@@ -38,10 +38,12 @@ function Table(props) {
     );
   }
 
-  function renderRows() {
-    const membersToRender = props.tableRows.filter(member => member);
-    if (membersToRender.length) return props.tableRows.map((row, index) => renderRow(row, index));
+  function renderPlaceHolder() {
     return <tr><td collspan={props.fieldsTemplate.length}>Nothing to show</td></tr>;
+  }
+
+  function renderRows() {
+    return props.tableRows.map((row, index) => renderRow(row, index));
   }
 
   return (
@@ -53,7 +55,7 @@ function Table(props) {
         </tr>
       </thead>
       <tbody>
-        { renderRows() }
+        { (props.tableRows.length && renderRows()) || renderPlaceHolder() }
       </tbody>
     </table>);
 }

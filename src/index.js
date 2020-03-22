@@ -15,11 +15,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: {
-        isOpen: false,
-        mode: null, // create || edit
-        values: null,
-      },
       tableRows: JSON.parse(localStorage.getItem('tableRows')) || [],
     };
   }
@@ -30,7 +25,7 @@ class App extends React.Component {
 
   deleteRow = (index) => {
     this.setState({
-      tableRows: this.state.tableRows.filter((_, i) => i !== index),
+      tableRows: this.state.tableRows.filter((_, itemIndex) => itemIndex !== index),
     }, () => { this.saveState('tableRows'); });
   }
 
@@ -44,37 +39,29 @@ class App extends React.Component {
   }
 
   editRow = (newData) => {
-    const { tableRows, modal } = this.state;
-    tableRows.splice(modal.rowIndex, 1, newData);
-    this.setState({ tableRows: [...tableRows] }, () => {
-      this.toggleModal();
+    const { tableRows, editingRowIndex } = this.state;
+    const updatedRows = tableRows.map((item, itemIndex) => {
+      if (itemIndex === editingRowIndex) return newData;
+      return item;
+    });
+    this.setState({ tableRows: [...updatedRows] }, () => {
       this.saveState('tableRows');
+      this.toggleModal();
     });
   }
 
   toggleModal = (options) => {
-    if (options && options.mode) {
-      this.setState(prevState => ({
-        modalIsOpen: !prevState.modalIsOpen,
-        modal: {
-          mode: options.mode || null,
-          rowIndex: options.rowIndex || null,
-          values: prevState.tableRows[options.rowIndex] || null,
-        },
-      }));
-    } else {
-      this.setState(prevState => ({
-        modalIsOpen: !prevState.modalIsOpen,
-        modal: {},
-      }));
-    }
+    this.setState(prevState => ({
+      modalIsOpen: !prevState.modalIsOpen,
+      editingRowIndex: options ? options.rowIndex : null,
+    }));
   }
 
   render() {
     return (
       <Fragment>
         <Button
-          action={() => { this.toggleModal({ mode: 'add' }); }}
+          action={() => { this.toggleModal(); }}
           className='addButton'>
             Add record
         </Button>
@@ -87,7 +74,7 @@ class App extends React.Component {
         {this.state.modalIsOpen &&
           <Modal
             visibility={this.state.modalIsOpen}
-            options={{ ...this.state.modal, fieldsTemplate }}
+            options={{ fieldsTemplate, values: this.state.tableRows[this.state.editingRowIndex] }}
             addHandler={this.addRow}
             editHandler={this.editRow}
             closeHandler={() => { this.toggleModal(); }}

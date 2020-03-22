@@ -57,6 +57,7 @@ class ModalForm extends React.Component {
     const hasDefault = this.state.formValue[field.name];
     return (
       <input
+        key={`${field.name}ModalInput`}
         type={field.type}
         name={field.name}
         className={ `modalFormTabInput ${this.state.activeTab === index ? 'modalFormTabInput-is-active' : ''}` }
@@ -74,8 +75,9 @@ class ModalForm extends React.Component {
         {this.renderTabs()}
         {this.renderInputs()}
         <Button
-          action={this.onFormSubmit}
+          type="submit"
           className="formSubmit"
+          action={this.onFormSubmit}
           disabled={!this.state.isValid}>
           {this.props.buttonText}
         </Button>
